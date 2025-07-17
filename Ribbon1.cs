@@ -1,19 +1,20 @@
-using System;
-using System.IO;
-using System.Reflection;
-using System.Windows.Forms;
 using Microsoft.Office.Core;
+using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace Test2
 {
+    [ComVisible(true)]
     public class Ribbon1 : IRibbonExtensibility
     {
         private IRibbonUI ribbon;
 
         public string GetCustomUI(string ribbonID)
         {
-            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Test2.Ribbon1.xml"))
-            using (StreamReader reader = new StreamReader(stream))
+            var assembly = Assembly.GetExecutingAssembly();
+            using (var stream = assembly.GetManifestResourceStream("Test2.Ribbon1.xml"))
+            using (var reader = new System.IO.StreamReader(stream))
             {
                 return reader.ReadToEnd();
             }
@@ -24,10 +25,9 @@ namespace Test2
             this.ribbon = ribbonUI;
         }
 
-        public void OnCompareClicked(IRibbonControl control)
+        public void OnCompareClick(IRibbonControl control)
         {
-            MessageBox.Show("Compare button clicked!", "User Story Comparator");
+            System.Windows.Forms.MessageBox.Show("Compare button clicked!");
         }
     }
 }
-
