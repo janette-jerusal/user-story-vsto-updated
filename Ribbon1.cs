@@ -12,10 +12,11 @@ namespace Test2
 
         public string GetCustomUI(string ribbonID)
         {
-            var asm = Assembly.GetExecutingAssembly();
-            using (var stream = asm.GetManifestResourceStream("Test2.Ribbon1.xml"))
-            using (var reader = new StreamReader(stream))
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Test2.Ribbon1.xml"))
+            using (StreamReader reader = new StreamReader(stream))
+            {
                 return reader.ReadToEnd();
+            }
         }
 
         public void Ribbon_Load(IRibbonUI ribbonUI)
@@ -23,10 +24,9 @@ namespace Test2
             this.ribbon = ribbonUI;
         }
 
-        public void OnCompareClick(IRibbonControl control)
+        public void OnCompareClicked(IRibbonControl control)
         {
-            MessageBox.Show("🎯 Compare button clicked!");
-            // TODO: Call your comparison logic here
+            MessageBox.Show("Compare button clicked!", "User Story Comparator");
         }
     }
 }
