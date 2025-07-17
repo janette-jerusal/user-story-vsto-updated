@@ -12,9 +12,8 @@ namespace Test2
 
         public string GetCustomUI(string ribbonID)
         {
-            var resourceName = "Test2.Ribbon1.xml"; // matches your project + file name
-
-            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+            using (Stream stream = Assembly.GetExecutingAssembly()
+                .GetManifestResourceStream("Test2.Ribbon1.xml"))
             using (StreamReader reader = new StreamReader(stream))
             {
                 return reader.ReadToEnd();
